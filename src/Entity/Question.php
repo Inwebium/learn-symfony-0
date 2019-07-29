@@ -21,9 +21,9 @@ class Question extends AbstractEntity
     private $endsAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Option", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="App\Entity\Answer", mappedBy="question")
      */
-    private $options;
+    private $answers;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="questions")
@@ -33,7 +33,7 @@ class Question extends AbstractEntity
 
     public function __construct()
     {
-        $this->options = new ArrayCollection();
+        $this->answers = new ArrayCollection();
     }
 
     public function getText(): ?string
@@ -61,30 +61,30 @@ class Question extends AbstractEntity
     }
 
     /**
-     * @return Collection|Option[]
+     * @return Collection|Answer[]
      */
-    public function getOptions(): Collection
+    public function getAnswers(): Collection
     {
-        return $this->options;
+        return $this->answers;
     }
 
-    public function addOption(Option $option): self
+    public function addAnswer(Answer $answer): self
     {
-        if (!$this->options->contains($option)) {
-            $this->options[] = $option;
-            $option->setQuestion($this);
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
+            $answer->setQuestion($this);
         }
 
         return $this;
     }
 
-    public function removeOption(Option $option): self
+    public function removeAnswer(Answer $answer): self
     {
-        if ($this->options->contains($option)) {
-            $this->options->removeElement($option);
+        if ($this->answers->contains($answer)) {
+            $this->answers->removeElement($answer);
             // set the owning side to null (unless already changed)
-            if ($option->getQuestion() === $this) {
-                $option->setQuestion(null);
+            if ($answer->getQuestion() === $this) {
+                $answer->setQuestion(null);
             }
         }
 

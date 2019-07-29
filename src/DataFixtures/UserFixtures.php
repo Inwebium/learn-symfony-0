@@ -37,17 +37,17 @@ class UserFixtures extends Fixture
             ->setAuthor($user1)
         ;
         
-        $option1_1 = new \App\Entity\Option();
+        $option1_1 = new \App\Entity\Answer();
         $option1_1->setText('Foo');
         
-        $option1_2 = new \App\Entity\Option();
+        $option1_2 = new \App\Entity\Answer();
         $option1_2->setText('Bar');
         
         
         
         $question1_1
-            ->addOption($option1_1)
-            ->addOption($option1_2)
+            ->addAnswer($option1_1)
+            ->addAnswer($option1_2)
         ;
         
         $option1_1->setQuestion($question1_1);
