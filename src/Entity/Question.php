@@ -106,7 +106,7 @@ class Question extends AbstractEntity
     
     /**
      * 
-     * @Groups({"base", "full"})
+     * @Groups({"with_author", "full"})
      * @return \App\Entity\User
      */
     public function getAuthor(): User
