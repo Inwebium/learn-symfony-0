@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,8 +31,13 @@ class Answer extends AbstractEntity
     {
         $this->votes = new ArrayCollection();
     }
-
-    public function getText(): ?string
+    
+    /**
+     * 
+     * @Groups({"base", "full"})
+     * @return string
+     */
+    public function getText(): string
     {
         return $this->text;
     }
@@ -42,13 +48,18 @@ class Answer extends AbstractEntity
 
         return $this;
     }
-
-    public function getQuestion(): ?Question
+    
+    /**
+     * 
+     * @Groups({"with_question", "full"})
+     * @return \App\Entity\Question
+     */
+    public function getQuestion(): Question
     {
         return $this->question;
     }
 
-    public function setQuestion(?Question $question): self
+    public function setQuestion(Question $question): self
     {
         $this->question = $question;
 
@@ -56,6 +67,8 @@ class Answer extends AbstractEntity
     }
 
     /**
+     * 
+     * @Groups({"with_votes", "full"})
      * @return Collection|Vote[]
      */
     public function getVotes(): Collection
@@ -85,4 +98,10 @@ class Answer extends AbstractEntity
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getText();
+    }
+
 }

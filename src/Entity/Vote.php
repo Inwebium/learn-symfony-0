@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,25 +21,35 @@ class Vote extends AbstractEntity
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
-    public function getAnswer(): ?Answer
+    
+    /**
+     * 
+     * @Groups({"base", "full"})
+     * @return \App\Entity\Answer
+     */
+    public function getAnswer(): Answer
     {
         return $this->answer;
     }
 
-    public function setAnswer(?Answer $answer): self
+    public function setAnswer(Answer $answer): self
     {
         $this->answer = $answer;
 
         return $this;
     }
-
-    public function getUser(): ?User
+    
+    /**
+     * 
+     * @Groups({"base", "full"})
+     * @return \App\Entity\User
+     */
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
