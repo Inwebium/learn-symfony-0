@@ -12,3 +12,8 @@ require('../css/app.css');
 // const $ = require('jquery');
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+ReactDOM.render(<h1>Hello world!</h1>, document.getElementById("root"));
