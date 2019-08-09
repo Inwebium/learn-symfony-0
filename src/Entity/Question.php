@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,8 +36,13 @@ class Question extends AbstractEntity
     {
         $this->answers = new ArrayCollection();
     }
-
-    public function getText(): ?string
+    
+    /**
+     * 
+     * @Groups({"base", "full"})
+     * @return string
+     */
+    public function getText(): string
     {
         return $this->text;
     }
@@ -47,8 +53,13 @@ class Question extends AbstractEntity
 
         return $this;
     }
-
-    public function getEndsAt(): ?\DateTimeInterface
+    
+    /**
+     * 
+     * @Groups({"base", "full"})
+     * @return \DateTimeInterface
+     */
+    public function getEndsAt(): \DateTimeInterface
     {
         return $this->endsAt;
     }
@@ -61,6 +72,8 @@ class Question extends AbstractEntity
     }
 
     /**
+     * 
+     * @Groups({"with_answers", "full"})
      * @return Collection|Answer[]
      */
     public function getAnswers(): Collection
@@ -90,16 +103,26 @@ class Question extends AbstractEntity
 
         return $this;
     }
-
-    public function getAuthor(): ?User
+    
+    /**
+     * 
+     * @Groups({"with_author", "full"})
+     * @return \App\Entity\User
+     */
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getText();
     }
 }

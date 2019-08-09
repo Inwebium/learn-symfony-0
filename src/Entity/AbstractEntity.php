@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 abstract class AbstractEntity implements EntityInterface
 {
@@ -15,6 +16,11 @@ abstract class AbstractEntity implements EntityInterface
      */
     protected $id;
     
+    /**
+     * 
+     * @Groups({"base", "full"})
+     * @return string
+     */
     public function getId(): string
     {
         return $this->id;
