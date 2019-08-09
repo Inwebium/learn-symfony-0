@@ -47,6 +47,12 @@ class QuestionController extends AbstractController
             ->getRepository(\App\Entity\Question::class)
             ->find($id);
         
+        $status = 200;
+        
+        if ($question === null) {
+            $status = 404;
+        }
+        
         return $this->json(
             $this->normalizer->normalize(
                 $question, 
@@ -54,7 +60,8 @@ class QuestionController extends AbstractController
                 [
                     'groups' => ['base', 'with_answers', 'with_votes']
                 ]
-            )
+            ),
+            $status
         );
     }
     
