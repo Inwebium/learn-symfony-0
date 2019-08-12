@@ -5,7 +5,7 @@
 
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
-            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('index') }}
 
             <!-- Renders a link tag (if your module requires any CSS)
                  <link rel="stylesheet" href="/build/app.css"> -->
@@ -15,7 +15,7 @@
         <div id="root"></div>
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('index') }}
 
             <!-- Renders app.js & a webpack runtime.js file
                 <script src="/build/runtime.js"></script>
