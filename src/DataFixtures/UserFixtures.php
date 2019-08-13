@@ -17,20 +17,33 @@ class UserFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
-        $user1 = new \App\Entity\User();
+        $users = [
+            'first', 'second', 'third', 'fourth', 'fifth'
+        ];
         
-        $user1
-            ->setUsername('first')
-            ->setPassword($this->passwordEncoder->encodePassword(
-                $user1,
-                '111qwe'
-            ))
-        ;
+        array_walk(
+            $users, 
+            function(&$username, $key) use ($manager) {
+                $newUser = new \App\Entity\User();
+                $newUser
+                    ->setUsername($username)
+                    ->setPassword(
+                        $this->passwordEncoder->encodePassword(
+                            $newUser, 
+                            $username
+                        )
+                    )
+                ;
+                
+                $manager->persist($newUser);
+                
+                $this->addReference($username, $newUser);
+            }
+        );
         
-        $manager->persist($user1);
         $manager->flush();
         
-        $question1_1 = new \App\Entity\Question();
+        /*$question1_1 = new \App\Entity\Question();
         $question1_1
             ->setText('Foo or Bar?')
             ->setEndsAt(new \DateTime('2019-08-15'))
@@ -57,6 +70,6 @@ class UserFixtures extends Fixture
         $manager->persist($option1_1);
         $manager->persist($option1_2);
         
-        $manager->flush();
+        $manager->flush();*/
     }
 }
