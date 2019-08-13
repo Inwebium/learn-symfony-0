@@ -24,7 +24,7 @@ class QuestionController extends AbstractController
         $questions = $this
             ->getDoctrine()
             ->getRepository(\App\Entity\Question::class)
-            ->findAll();
+            ->findActive();
         
         return $this->json(
             $this->normalizer->normalize(

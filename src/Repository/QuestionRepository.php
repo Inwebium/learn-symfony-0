@@ -18,6 +18,20 @@ class QuestionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Question::class);
     }
+    
+    public function findActive($limit = 10)
+    {
+        $currentDatetime = new \DateTime();
+        
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.endsAt > :currentDT')
+            ->setParameter('currentDT', $currentDatetime)
+            ->orderBy('q.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Question[] Returns an array of Question objects
