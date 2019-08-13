@@ -27,9 +27,19 @@ class Answer extends AbstractEntity
      */
     private $votes;
 
-    public function __construct()
+    public function __construct(string $text, Question $question, ArrayCollection $votes = null)
     {
+        $this->setText($text);
+        $this->setQuestion($question);
         $this->votes = new ArrayCollection();
+        
+        $answer = $this;
+        
+        if (!empty($votes)) {
+            array_walk($votes, function(Vote &$vote, $key) use ($answer) {
+                $answer->addVote($vote);
+            });
+        }
     }
     
     /**

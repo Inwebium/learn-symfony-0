@@ -15,7 +15,12 @@ class Question extends AbstractEntity
      * @ORM\Column(type="string", length=200)
      */
     private $text;
-
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+    
     /**
      * @ORM\Column(type="datetime")
      */
@@ -34,6 +39,7 @@ class Question extends AbstractEntity
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->answers = new ArrayCollection();
     }
     
@@ -52,6 +58,16 @@ class Question extends AbstractEntity
         $this->text = $text;
 
         return $this;
+    }
+    
+    /**
+     * 
+     * @Groups({"base", "full"})
+     * @return \DateTimeInterface
+     */
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
     }
     
     /**
